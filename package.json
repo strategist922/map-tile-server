@@ -1,0 +1,20 @@
+{
+  "name": "map-tile-server",
+  "version": "0.0.1",
+  "description": "Mapnik Tile Server",
+  "main": "server.js",
+  "dependencies": {
+    "optimist": "~0.5.2",
+    "mapnik": "~0.7.22",
+    "async": "~0.2.9",
+    "mkdirp": "~0.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}
