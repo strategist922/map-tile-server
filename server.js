@@ -60,7 +60,7 @@ function start(options) {
     if (urlMatch) {
       var stream = fs.createReadStream(__dirname + urlMatch[0]);
       stream.pipe(res);
-      return;
+      return true;
     }
 
     urlMatch = req.url.match(/\/([0-9]+)\/([0-9]+)\/([0-9]+)\.png/);
@@ -88,6 +88,7 @@ function start(options) {
       res.writeHead(200, 'image/png');
       var fileStream = fs.createReadStream(results.fileName);
       fileStream.pipe(res);
+      return true;
     });
   }
 }
@@ -103,7 +104,7 @@ var mapRenderQueue = async.queue(function(options, callback) {
       }
 
       var map = new mapnik.Map(options.tileWidth, options.tileHeight);
-      map.load(options.stylesheet, { strict: true }, function(err) {
+      return map.load(options.stylesheet, { strict: true }, function(err) {
         if (err) {
           return callback(err);
         }
@@ -136,7 +137,7 @@ var mapRenderQueue = async.queue(function(options, callback) {
         map.zoomToBox(c0[0], c0[1], c1[0], c1[1]);
         map.bufferSize = 128;
         console.log("rendering tile: tileX: " + options.tileX + ", tileY: " + options.tileY + ", zoom: " + options.zoom);
-        map.renderFile(options.fileName, { scale: 1 }, function(err) {
+        return map.renderFile(options.fileName, { scale: 1 }, function(err) {
           if (err) {
             return callback(err);
           }
