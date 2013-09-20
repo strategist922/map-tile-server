@@ -1,0 +1,25 @@
+<html>
+<head>
+  <script type="text/javascript" src="OpenLayers.js"></script>
+  <style>
+    #map {
+      width: 800px;
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  var map = new OpenLayers.Map("map");
+
+  var ol_wms = new OpenLayers.Layer.OSM(
+      "node map tile server",
+      ["/${z}/${x}/${y}.png"]
+  );
+
+  map.addLayers([ol_wms]);
+  map.zoomToMaxExtent();
+</script>
+</body>
+</html>
