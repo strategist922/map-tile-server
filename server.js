@@ -19,6 +19,10 @@ var argv = optimist
     default: 9999,
     describe: 'The port to run on.'
   })
+  .options('fontsdir', {
+    default: '/usr/share/fonts/truetype/ttf-dejavu',
+    describe: 'The directory to load fonts from.'
+  })
   .options('stylesheet', {
     default: path.join(__dirname, "osm.xml"),
     describe: 'The stylesheet filename.'
@@ -40,6 +44,9 @@ process.on('uncaughtException', function(err) {
 function start(options) {
   var tileWidth = 256;
   var tileHeight = 256;
+
+  mapnik.register_fonts(options.fontsdir);
+  console.log('available fonts:', mapnik.fonts());
 
   if (!fs.existsSync(options.stylesheet)) {
     console.error("Could not find stylesheet: ", options.stylesheet);
